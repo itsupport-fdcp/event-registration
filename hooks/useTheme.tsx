@@ -8,6 +8,7 @@ export interface ColorScheme {
     secondary: string;
     tertiary: string;
     tabMuted: string;
+    input_bg: string;
 }
 
 
@@ -19,6 +20,7 @@ const darkColors: ColorScheme = {
     secondary: '#FFE6A1',
     tertiary: '#2A2A2A',
     tabMuted: '#957723',
+    input_bg: '#D9D9D9'
 };
 
 

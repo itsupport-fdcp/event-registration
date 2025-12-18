@@ -16,8 +16,9 @@ export default function RootLayout() {
 
   const [fontsLoaded] = useFonts({
     "Poppins-Bold": require("../assets/fonts/Poppins-Bold.ttf"),
-    "Poppins-Medium": require("../assets/fonts/Poppins-Regular.ttf"),
+    "Poppins-Regular": require("../assets/fonts/Poppins-Regular.ttf"),
     "Poppins-SemiBold": require("../assets/fonts/Poppins-SemiBold.ttf"),
+    "Poppins-Medium": require("../assets/fonts/Poppins-Medium.ttf"),
   });
 
   const onLayoutRootView = useCallback(async () => {
@@ -35,8 +36,8 @@ export default function RootLayout() {
         <ThemeProvider>
           <Background>
             <Header />
-            <Slot />
           </Background>
+          <Slot />
         </ThemeProvider>
       </SafeAreaView>
     </SafeAreaProvider>

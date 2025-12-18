@@ -1,4 +1,4 @@
-import { m, xl } from '@/constants/font_constants';
+import { m, xl } from '@/constants/fonts';
 import { ColorScheme } from "@/hooks/useTheme";
 import { StyleSheet } from "react-native";
 

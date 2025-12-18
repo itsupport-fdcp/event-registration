@@ -1,11 +1,12 @@
 
-import EventIcon from '@/assets/images/events-icon.svg';
 import NewsIcon from '@/assets/images/news-icon.svg';
 import ProfileIcon from '@/assets/images/profile-icon.svg';
-import { xs } from '@/constants/font_constants';
+import { xs } from '@/constants/fonts';
 import useTheme from '@/hooks/useTheme';
+import { Ionicons } from '@expo/vector-icons';
 import { Tabs } from 'expo-router';
 import React from 'react';
+
 
 export default function TabLayout() {
   const { colors } = useTheme();
@@ -33,7 +34,7 @@ export default function TabLayout() {
           options={{
             title: 'Home',
             tabBarIcon: ({color, size}) => (
-              <EventIcon width={size} height={size} fill={color} />
+              <Ionicons name="home-sharp" size={size} color={color} />
             ),
           }}
         />

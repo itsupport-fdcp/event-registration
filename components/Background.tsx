@@ -7,11 +7,20 @@ export default function Background({children}: {children: React.ReactNode}) {
   const {colors} = useTheme();
 
   return (
-    <View style={{ flex: 1, backgroundColor: colors.background }}>
-        {children}  
+    <View style={{ backgroundColor: colors.background }}>
+        {children}
     </View>
   )
 }
 
+export function ContentContainer({children}: {children: React.ReactNode}) {
+  const {colors} = useTheme();
+
+  return (
+    <View style={{ flex: 1, backgroundColor: colors.background, padding: 16 }}>
+        {children}
+    </View>
+  )
+}
 
 const styles = StyleSheet.create({})
