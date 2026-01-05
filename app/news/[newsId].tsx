@@ -32,7 +32,7 @@ The FDCP is committed to promoting film appreciation and education in the Philip
 
   return (
     <View style={{ flex: 1, backgroundColor: colors.background }}>
-      <TouchableOpacity onPress={() => router.back()} style={styles.backButton}>
+      <TouchableOpacity onPress={() => router.replace('/news')} style={styles.backButton}>
         <Ionicons name="arrow-back" size={28} color={colors.primary} />
       </TouchableOpacity>
       <ScrollView style={styles.container}>

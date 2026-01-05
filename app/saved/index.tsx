@@ -1,11 +1,11 @@
-import UpcomingEventsList from '@/components/UpcomingEventsList';
+import EmptyState from '@/components/empty states/EmptyState';
 import { contentWrapperPadding } from '@/constants/content';
 import { l, m, xl } from '@/constants/fonts';
 import useTheme from '@/hooks/useTheme';
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import React from 'react';
-import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native';
 
 export default function SavedItems() {
   const { colors } = useTheme();
@@ -13,27 +13,23 @@ export default function SavedItems() {
 
   return (
     <View style={{ flex: 1, backgroundColor: colors.background }}>
-        <TouchableOpacity onPress={() => router.back()} style={styles.backButton}>
+        <TouchableOpacity onPress={() => router.replace('/profile')} style={styles.backButton}>
           <Ionicons name="arrow-back" size={28} color={colors.primary} />
         </TouchableOpacity>
 
       <ScrollView style={styles.container}>
         <View style={styles.contentWrapper}>
-          <View style={styles.section}>
+          {/* <View style={styles.section}>
             <Text style={[styles.sectionTitle, { color: colors.primary }]}>Saved Events</Text>
             <UpcomingEventsList />
-          </View>
-          {/*
-          <View style={styles.emptyState}>
-            <Ionicons name="bookmark-outline" size={64} color={colors.tertiary} />
-            <Text style={[styles.emptyText, { color: colors.secondary }]}>
-              No saved items yet
-            </Text>
-            <Text style={[styles.emptySubtext, { color: colors.secondary }]}>
-              Save events and news to view them here
-            </Text>
-          </View>
-          */}
+          </View> */}
+          
+          <EmptyState
+            header="No Saved Items"
+            description="You haven't saved any items yet."
+            icon="bookmark-outline"
+          />
+         
         </View>
       </ScrollView>
     </View>
@@ -82,7 +78,7 @@ const styles = StyleSheet.create({
   },
   emptySubtext: {
     fontSize: m,
-    fontFamily: 'Poppins-Regular',
+    fontFamily: 'Poppins-SemiBold',
     marginTop: 8,
     textAlign: 'center',
   },
