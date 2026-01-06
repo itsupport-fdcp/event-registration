@@ -11,11 +11,13 @@ const ROUTE_LABELS: Record<string, string> = {
   screening: 'Screenings',
   profile: 'Profile',
   saved: 'Saved',
+  registered: 'Registered Events',
   '(tabs)': 'Look for events',
   '[screeningsId]': 'Screenings',
   '[eventId]': 'Event Details',
   '[screeningId]': 'Screening Details',
   '[newsId]': 'News Details',
+  '[registrationId]': 'Registered Details',
   '+not-found': 'Not Found',
 };
 
@@ -29,7 +31,10 @@ export default function Header({ title }: { title?: string }) {
   console.log(lastSegment);
   const derived = ROUTE_LABELS[lastSegment] ??
     lastSegment.replace(/[-_]/g, ' ').replace(/(^|\s)\w/g, (c) => c.toUpperCase());
+
   const label = title ?? derived ?? 'App';
+  
+  console.log(label.length > 19);
 
   return (
     <View style={headerColors.container}>

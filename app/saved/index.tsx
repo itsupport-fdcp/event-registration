@@ -1,35 +1,39 @@
 import EmptyState from '@/components/empty states/EmptyState';
+import SearchBar from '@/components/SearchBar';
+import UpcomingEventsList from '@/components/UpcomingEventsList';
 import { contentWrapperPadding } from '@/constants/content';
 import { l, m, xl } from '@/constants/fonts';
 import useTheme from '@/hooks/useTheme';
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import React from 'react';
-import { ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native';
-
+import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 export default function SavedItems() {
   const { colors } = useTheme();
   const router = useRouter();
 
   return (
     <View style={{ flex: 1, backgroundColor: colors.background }}>
-        <TouchableOpacity onPress={() => router.replace('/profile')} style={styles.backButton}>
-          <Ionicons name="arrow-back" size={28} color={colors.primary} />
-        </TouchableOpacity>
-
+      
+      <TouchableOpacity onPress={() => router.replace('/profile')} style={styles.backButton}>
+        <Ionicons name="arrow-back" size={28} color={colors.primary} />
+      </TouchableOpacity>
+      <View style={styles.contentWrapper}>
+        <SearchBar placeholder="Search registered events" onSearch={(text: string) => console.log(`Searching for ${text}`)}/>
+      </View>
       <ScrollView style={styles.container}>
         <View style={styles.contentWrapper}>
-          {/* <View style={styles.section}>
-            <Text style={[styles.sectionTitle, { color: colors.primary }]}>Saved Events</Text>
+          <View style={styles.section}>
+            <Text style={[styles.sectionTitle, { color: colors.primary }]}>Registered Events</Text>
             <UpcomingEventsList />
-          </View> */}
-          
+          </View>
+
           <EmptyState
-            header="No Saved Items"
-            description="You haven't saved any items yet."
-            icon="bookmark-outline"
+            header="No Saved Events"
+            description="You haven't Saved for any events yet."
+            icon="ticket-outline"
           />
-         
+
         </View>
       </ScrollView>
     </View>

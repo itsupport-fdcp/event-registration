@@ -12,7 +12,7 @@ export default function Profile() {
 
   const menuItems = [
     { icon: 'bookmark-outline', label: 'Saved', action: () => router.push('../saved') },
-    { icon: 'calendar-outline', label: 'Registered Events', action: () => console.log('Registered Events pressed') },
+    { icon: 'calendar-outline', label: 'Registered Events', action: () => router.push('../registered') },
     { icon: 'create-outline', label: 'Edit Profile', action: () => console.log('Edit Profile pressed'), hasDropdown: true },
     { icon: 'time-outline', label: 'History', action: () => console.log('History pressed') },
     { icon: 'trash-outline', label: 'Clear credentials', action: () => console.log('Clear credentials pressed'), isDestructive: true },

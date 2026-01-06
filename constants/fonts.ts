@@ -1,5 +1,5 @@
 
-
+export const xxl: number = 36;
 export const xl: number = 32;
 export const l: number = 24;
 export const medjoLargeLang: number = 20;
