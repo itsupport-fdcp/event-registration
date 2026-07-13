@@ -1,3 +1,4 @@
+import EmptyState from '@/components/empty states/EmptyState';
 import { l, m, s, xl } from '@/constants/fonts';
 import useTheme from '@/hooks/useTheme';
 import { Ionicons } from '@expo/vector-icons';
@@ -89,7 +90,7 @@ export default function ScreeningDetailsPage() {
           </ScrollView>
 
           <View style={styles.sessionsSection}>
-            {filteredSessions.map((session) => (
+            {filteredSessions.length > 0 ? filteredSessions.map((session) => (
               <LinearGradient
                 key={session.id}
                 colors={['#580076', '#E200A9']}
@@ -103,7 +104,15 @@ export default function ScreeningDetailsPage() {
                   <Text style={styles.sessionTime}>{session.time}</Text>
                 </View>
               </LinearGradient>
-            ))}
+            )) : (
+              <EmptyState
+                compact
+                header="No Sessions Available"
+                description={`There are no sessions scheduled in ${selectedLocation}.`}
+                icon="calendar-outline"
+                showHomeLink={false}
+              />
+            )}
           </View>
           <View style={styles.mapSection}>
             <Text style={[styles.locationLabel, { color: colors.primary }]}>Location</Text>

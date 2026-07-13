@@ -2,7 +2,8 @@ import { l, m, s } from "@/constants/fonts";
 import useTheme from "@/hooks/useTheme";
 import { Ionicons } from "@expo/vector-icons";
 import { Image } from "expo-image";
-import { ImageSourcePropType, StyleSheet, Text, View } from "react-native";
+import { useRouter } from 'expo-router';
+import { ImageSourcePropType, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 
 
@@ -19,6 +20,7 @@ export interface News {
 }
 
 export default function NewsCard({
+    id,
     date = "Date",
     author = "Author",
     headline = "Headline",
@@ -30,9 +32,21 @@ export default function NewsCard({
 
 
     const { colors } = useTheme();
+    const router = useRouter();
+
+    const handlePress = () => {
+        if (id) router.push(`/news/${id}` as any);
+    };
 
     return (
-        <View style={styles.card}>
+        <TouchableOpacity
+            accessibilityLabel={`Read ${headline}`}
+            accessibilityRole="link"
+            activeOpacity={0.8}
+            disabled={!id}
+            onPress={handlePress}
+            style={styles.card}
+        >
             <View style={styles.imageContainer}>  
                 <Image
                 source={imageSource || require('@/assets/images/logo.png')}
@@ -68,7 +82,7 @@ export default function NewsCard({
                     </Text>
                 )}
             </View>
-        </View>
+        </TouchableOpacity>
     )
 
 

@@ -2,26 +2,43 @@ import { l, m } from '@/constants/fonts';
 import useTheme from '@/hooks/useTheme';
 import { Ionicons } from '@expo/vector-icons';
 import { Image } from 'expo-image';
+import { useRouter } from 'expo-router';
 import React from 'react';
-import { ImageSourcePropType, StyleSheet, Text, View } from 'react-native';
+import { ImageSourcePropType, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 interface EventCardProps {
+  id: string;
   time?: string;
   title?: string;
   hosted_by?: string;
   imageSource?: ImageSourcePropType;
+  type?: 'event' | 'screening';
 }
 
 export default function EventCard({
+  id,
   time = "Time",
   title = "Title",
   hosted_by = "Host",
-  imageSource
+  imageSource,
+  type = 'event',
 }: EventCardProps) {
   const { colors } = useTheme();
+  const router = useRouter();
+
+  const handlePress = () => {
+    const route = type === 'screening' ? `/screening/${id}` : `/event/${id}`;
+    router.push(route as any);
+  };
 
   return (
-    <View style={styles.card}>
+    <TouchableOpacity
+      accessibilityLabel={`View ${title}`}
+      accessibilityRole="link"
+      activeOpacity={0.8}
+      onPress={handlePress}
+      style={styles.card}
+    >
       <View style={styles.imageContainer}>
         <Image
           source={imageSource || require('@/assets/images/logo.png')}
@@ -51,7 +68,7 @@ export default function EventCard({
           </Text>
         )}
       </View>
-    </View>
+    </TouchableOpacity>
   );
 }
 

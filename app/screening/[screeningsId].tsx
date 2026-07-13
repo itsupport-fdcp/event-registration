@@ -1,3 +1,4 @@
+import EmptyState from '@/components/empty states/EmptyState';
 import { l, m, s, xl } from '@/constants/fonts';
 import useTheme from '@/hooks/useTheme';
 import { Ionicons } from '@expo/vector-icons';
@@ -84,7 +85,7 @@ export default function ScreeningDetails() {
           </View>
           <View style={styles.screeningSection}>
             <Text style={[styles.sectionTitle, { color: colors.text }]}>Screenings</Text>
-            {screening.screenings.map((item, index) => (
+            {screening.screenings.length > 0 ? screening.screenings.map((item) => (
               <TouchableOpacity
                 key={item.id}
                 onPress={() => router.push(`/screening/details/${item.id}` as any)}
@@ -115,7 +116,15 @@ export default function ScreeningDetails() {
                   </View>
                 </View>
               </TouchableOpacity>
-            ))}
+            )) : (
+              <EmptyState
+                compact
+                header="No Screenings Available"
+                description="There are no screenings scheduled for this event."
+                icon="film-outline"
+                showHomeLink={false}
+              />
+            )}
           </View>
         </View>
       </ScrollView>

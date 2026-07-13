@@ -1,8 +1,9 @@
 import React from 'react';
 import { FlatList, ImageSourcePropType } from 'react-native';
+import EmptyState from './empty states/EmptyState';
 import RegisteredEventCard from './RegisteredEventCard';
 
-interface RegisteredEvent {
+export interface RegisteredEvent {
   id: string;
   imageSource?: ImageSourcePropType;
   title: string;
@@ -13,6 +14,7 @@ interface RegisteredEvent {
 
 interface RegisteredEventsListProps {
   events?: RegisteredEvent[];
+  variant?: 'registered' | 'history';
 }
 
 const defaultEvents: RegisteredEvent[] = [
@@ -39,12 +41,24 @@ const defaultEvents: RegisteredEvent[] = [
   },
 ];
 
-export default function RegisteredEventsList({ events = defaultEvents }: RegisteredEventsListProps) {
+export default function RegisteredEventsList({
+  events = defaultEvents,
+  variant = 'registered',
+}: RegisteredEventsListProps) {
   return (
     <FlatList
       data={events}
       showsVerticalScrollIndicator={false}
       keyExtractor={(item) => item.id}
+      ListEmptyComponent={
+        <EmptyState
+          compact
+          header="No Registered Events"
+          description="You haven't registered for any events yet."
+          icon="ticket-outline"
+          showHomeLink={false}
+        />
+      }
       renderItem={({ item }) => (
         <RegisteredEventCard
           id={item.id}
@@ -53,6 +67,7 @@ export default function RegisteredEventsList({ events = defaultEvents }: Registe
           hostedBy={item.hostedBy}
           time={item.time}
           date={item.date}
+          variant={variant}
         />
       )}
       scrollEnabled={false}

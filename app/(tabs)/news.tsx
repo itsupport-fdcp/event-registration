@@ -4,19 +4,26 @@ import SearchBar from '@/components/SearchBar';
 import { contentWrapperPadding } from '@/constants/content';
 import { l, s } from '@/constants/fonts';
 import useTheme from '@/hooks/useTheme';
+import { useRouter } from 'expo-router';
 import React from 'react';
 import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
-export default function news() {
-
+export default function News() {
   const { colors } = useTheme();
+  const router = useRouter();
+
   return (
     <ScrollView style={{ flex: 1, backgroundColor: colors.background }}>
       <View style={styles.contentWrapper}>
         <SearchBar placeholder="Search news..." onSearch={(text: string) => console.log(`Searching for ${text}`)}/>
           <View style={styles.sectionHeader}>
             <Text style={[styles.sectionTitle, { color: colors.primary }]}>Latest news</Text>
-            <TouchableOpacity onPress={() => console.log('See all pressed')}>
+            <TouchableOpacity
+              accessibilityLabel="See all latest news"
+              accessibilityRole="link"
+              hitSlop={8}
+              onPress={() => router.push('/news/latest')}
+            >
               <Text style={[styles.seeAllText, { color: colors.primary }]}>See all</Text>
             </TouchableOpacity>
           </View>

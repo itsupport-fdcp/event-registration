@@ -4,6 +4,7 @@ import { format } from 'date-fns';
 import { LinearGradient } from "expo-linear-gradient";
 import { useState } from "react";
 import { FlatList, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import EmptyState from './empty states/EmptyState';
 import MoreNewsCard from "./MoreNewsCard";
 import type { News } from './NewsCard';
 
@@ -97,6 +98,15 @@ export default function MoreNewsCardList({
                 showsVerticalScrollIndicator={false}
                 scrollEnabled={false}
                 keyExtractor={(item) => item.id || ''}
+                ListEmptyComponent={
+                    <EmptyState
+                        compact
+                        header="No News Found"
+                        description={newsType === 'All' ? 'There are no news stories right now.' : `No news found in ${newsType}.`}
+                        icon="newspaper-outline"
+                        showHomeLink={false}
+                    />
+                }
                 renderItem={({item}) => (
                     <MoreNewsCard
                         id={item.id}

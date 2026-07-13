@@ -1,5 +1,6 @@
 import Background from "@/components/Background";
 import Header from "@/components/Header";
+import { AuthProvider } from "@/contexts/AuthContext";
 import { ThemeProvider } from "@/hooks/useTheme";
 import { useFonts } from "expo-font";
 import { Slot } from "expo-router";
@@ -33,12 +34,14 @@ export default function RootLayout() {
     <SafeAreaProvider>
       <SafeAreaView style={{ flex: 1 }} onLayout={onLayoutRootView}>
         <StatusBar style="auto" animated />
-        <ThemeProvider>
-          <Background>
-            <Header />
-          </Background>
-          <Slot />
-        </ThemeProvider>
+        <AuthProvider>
+          <ThemeProvider>
+            <Background>
+              <Header />
+            </Background>
+            <Slot />
+          </ThemeProvider>
+        </AuthProvider>
       </SafeAreaView>
     </SafeAreaProvider>
   );

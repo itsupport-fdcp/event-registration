@@ -13,6 +13,7 @@ interface RegisteredEventCardProps {
   hostedBy?: string;
   time?: string;
   date?: string;
+  variant?: 'registered' | 'history';
 }
 
 export default function RegisteredEventCard({
@@ -22,15 +23,20 @@ export default function RegisteredEventCard({
   hostedBy = "Host Name",
   time = "1:00 PM",
   date = "FEB 5, 2025",
+  variant = 'registered',
 }: RegisteredEventCardProps) {
   const { colors } = useTheme();
   const router = useRouter();
 
   const handlePress = () => {
-    // Navigate to the registered event QR display page
+    if (variant === 'history') {
+      router.push(`/event/${id}` as any);
+      return;
+    }
+
     router.push({
       pathname: '/registered/[registrationId]',
-      params: { registrationId: id }
+      params: { registrationId: id },
     } as any);
   };
 
@@ -56,7 +62,7 @@ export default function RegisteredEventCard({
               hosted by: {hostedBy}
             </Text>
             <Text style={[styles.helperText, { color: colors.text, opacity: 0.6 }]} numberOfLines={1}>
-              Tap to view QR
+              {variant === 'history' ? 'Attended · Tap to view event' : 'Tap to view QR'}
             </Text>
           </View>
         </View>

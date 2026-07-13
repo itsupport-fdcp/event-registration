@@ -10,6 +10,7 @@ interface User {
 interface AuthContextType {
   user: User | null;
   isAuthenticated: boolean;
+  clearCredentials: () => void;
   login: (email: string, password: string) => Promise<void>;
   logout: () => void;
   register: (email: string, password: string, name: string) => Promise<void>;
@@ -70,15 +71,18 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
   };
 
-  const logout = () => {
+  const clearCredentials = () => {
     setUser(null);
   };
+
+  const logout = clearCredentials;
 
   return (
     <AuthContext.Provider
       value={{
         user,
         isAuthenticated: !!user,
+        clearCredentials,
         login,
         logout,
         register,

@@ -40,7 +40,11 @@ export default function MoreNewsCard({
                         <Text style={[styles.type, { color: colors.text }]} numberOfLines={1}>
                           {category}
                         </Text>
-                        <Text style={[styles.textMedium, { color: colors.text }]} numberOfLines={1}>
+                        <Text
+                          ellipsizeMode="tail"
+                          style={[styles.dateText, { color: colors.text }]}
+                          numberOfLines={1}
+                        >
                           {date}
                         </Text>
                       </View>
@@ -78,12 +82,16 @@ const styles = StyleSheet.create({
     },
     contentContainer: {
         flex: 1,
+        minWidth: 0,
         marginLeft: 12,
         justifyContent: 'space-between',
     },
     type: {
         fontSize: s,
         fontFamily: 'Poppins-SemiBold',
+        flex: 1,
+        minWidth: 0,
+        marginRight: 8,
         marginBottom: 2,
     },
     textMedium: {
@@ -94,5 +102,15 @@ const styles = StyleSheet.create({
     titleDateRow: {
         flexDirection: 'row',
         justifyContent: 'space-between',
+        alignItems: 'flex-start',
+        minWidth: 0,
+    },
+    dateText: {
+        maxWidth: '45%',
+        flexShrink: 0,
+        fontSize: s,
+        fontFamily: 'Poppins-Regular',
+        textAlign: 'right',
+        marginBottom: 2,
     },
 });

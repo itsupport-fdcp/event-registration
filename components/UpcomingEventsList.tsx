@@ -1,8 +1,9 @@
 import React from 'react';
 import { FlatList, ImageSourcePropType } from 'react-native';
+import EmptyState from './empty states/EmptyState';
 import UpcomingEventCard from './UpcomingEventCard';
 
-interface UpcomingEvent {
+export interface UpcomingEvent {
   id: string;
   imageSource?: ImageSourcePropType;
   title: string;
@@ -17,7 +18,7 @@ interface UpcomingEventsListProps {
   events?: UpcomingEvent[];
 }
 
-const defaultEvents: UpcomingEvent[] = [
+export const defaultEvents: UpcomingEvent[] = [
   {
     id: '1',
     title: 'Movie Screening',
@@ -61,6 +62,15 @@ export default function UpcomingEventsList({ events = defaultEvents }: UpcomingE
       data={events}
       showsVerticalScrollIndicator={false}
       keyExtractor={(item) => item.id}
+      ListEmptyComponent={
+        <EmptyState
+          compact
+          header="No Upcoming Events"
+          description="There are no upcoming events right now."
+          icon="calendar-outline"
+          showHomeLink={false}
+        />
+      }
       renderItem={({ item }) => (
         <UpcomingEventCard
           id={item.id}

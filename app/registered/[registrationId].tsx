@@ -1,3 +1,4 @@
+import EmptyState from '@/components/empty states/EmptyState';
 import QRCode from '@/components/QRCode';
 import { contentWrapperPadding } from '@/constants/content';
 import { l, m, xl, xxl } from '@/constants/fonts';
@@ -94,7 +95,11 @@ export default function RegisteredEventDetail() {
   if (!registration) {
     return (
       <View style={[styles.loadingContainer, { backgroundColor: colors.background }]}>
-        <Text style={[styles.errorText, { color: colors.text }]}>Registration not found</Text>
+        <EmptyState
+          header="Registration Not Found"
+          description="This registration may have expired or is no longer available."
+          icon="ticket-outline"
+        />
       </View>
     );
   }
@@ -198,10 +203,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-  },
-  errorText: {
-    fontSize: l,
-    fontFamily: 'Poppins-SemiBold',
   },
   header: {
     flexDirection: 'row',

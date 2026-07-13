@@ -1,15 +1,15 @@
-import { s } from '@/constants/fonts';
-import useTheme from '@/hooks/useTheme';
 import React from 'react';
 import { FlatList, StyleSheet, View } from 'react-native';
+import EmptyState from './empty states/EmptyState';
 import type { News } from './NewsCard';
 import NewsCard from './NewsCard';
 
 interface NewsCardListProps {
   news?: News[];
+  horizontal?: boolean;
 }
 
-const defaultNews: News[] = [
+export const defaultNews: News[] = [
   {
     id: '1',
     date: '12/10/2024',
@@ -45,19 +45,30 @@ const defaultNews: News[] = [
 ];
 
 
-export default function NewsCardList({ news = defaultNews }: NewsCardListProps) {
-  const { colors } = useTheme();
-
-
+export default function NewsCardList({
+  news = defaultNews,
+  horizontal = true,
+}: NewsCardListProps) {
   return (
       <FlatList
         data={news}
-        horizontal
+        horizontal={horizontal}
         showsHorizontalScrollIndicator={false}
+        showsVerticalScrollIndicator={false}
         keyExtractor={(item) => item.id || ''}
+        ListEmptyComponent={
+          <EmptyState
+            compact
+            header="No Latest News"
+            description="There are no latest news stories right now."
+            icon="newspaper-outline"
+            showHomeLink={false}
+          />
+        }
         renderItem={({ item }) => (
-          <View style={styles.cardWrapper}>
+          <View style={horizontal ? styles.horizontalCardWrapper : styles.verticalCardWrapper}>
             <NewsCard
+              id={item.id}
               date={item.date}
               author={item.author}
               headline={item.headline}
@@ -67,31 +78,21 @@ export default function NewsCardList({ news = defaultNews }: NewsCardListProps) 
             />
           </View>
         )}
-        contentContainerStyle={styles.listContainer}
+        contentContainerStyle={horizontal ? styles.horizontalListContainer : undefined}
+        scrollEnabled={horizontal}
       />
   );
 }
 
 const styles = StyleSheet.create({
-  chipsContainer: {
-    flexDirection: 'row',
-    marginBottom: 16,
-  },
-  chip: {
-    paddingHorizontal: 16,
-    paddingVertical: 8,
-    borderRadius: 20,
-    marginRight: 8,
-  },
-  chipText: {
-    fontSize: s,
-    fontFamily: 'Poppins-Medium',
-  },
-  listContainer: {
+  horizontalListContainer: {
     paddingRight: 24,
   },
-  cardWrapper: {
+  horizontalCardWrapper: {
     width: 300,
     marginRight: 16,
+  },
+  verticalCardWrapper: {
+    marginBottom: 16,
   },
 });

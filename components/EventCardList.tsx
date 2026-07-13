@@ -1,20 +1,23 @@
 import React from 'react';
 import { FlatList, ImageSourcePropType, StyleSheet, View } from 'react-native';
+import EmptyState from './empty states/EmptyState';
 import EventCard from './EventCard';
 
-interface Event {
+export interface Event {
   id: string;
   time: string;
   title: string;
   hosted_by: string;
   imageSource?: ImageSourcePropType;
+  type?: 'event' | 'screening';
 }
 
 interface EventCardListProps {
   events?: Event[];
+  horizontal?: boolean;
 }
 
-const defaultEvents: Event[] = [
+export const defaultEvents: Event[] = [
   {
     id: '1',
     time: '2 hours ago',
@@ -41,34 +44,53 @@ const defaultEvents: Event[] = [
   },
 ];
 
-export default function EventCardList({ events = defaultEvents }: EventCardListProps) {
+export default function EventCardList({
+  events = defaultEvents,
+  horizontal = true,
+}: EventCardListProps) {
   return (
     <FlatList
       data={events}
-      horizontal
+      horizontal={horizontal}
       showsHorizontalScrollIndicator={false}
+      showsVerticalScrollIndicator={false}
       keyExtractor={(item) => item.id}
+      ListEmptyComponent={
+        <EmptyState
+          compact
+          header="No Events Happening"
+          description="There are no events happening right now."
+          icon="calendar-outline"
+          showHomeLink={false}
+        />
+      }
       renderItem={({ item }) => (
-        <View style={styles.cardWrapper}>
+        <View style={horizontal ? styles.horizontalCardWrapper : styles.verticalCardWrapper}>
           <EventCard
+            id={item.id}
             time={item.time}
             title={item.title}
             hosted_by={item.hosted_by}
             imageSource={item.imageSource}
+            type={item.type}
           />
         </View>
       )}
-      contentContainerStyle={styles.listContainer}
+      contentContainerStyle={horizontal ? styles.horizontalListContainer : undefined}
+      scrollEnabled={horizontal}
     />
   );
 }
 
 const styles = StyleSheet.create({
-  listContainer: {
+  horizontalListContainer: {
     paddingRight: 24,
   },
-  cardWrapper: {
+  horizontalCardWrapper: {
     width: 300,
     marginRight: 16,
+  },
+  verticalCardWrapper: {
+    marginBottom: 16,
   },
 });
